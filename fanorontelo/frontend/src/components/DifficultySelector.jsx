@@ -5,9 +5,9 @@ function DifficultySelector() {
   const { difficulty, setDifficulty } = useGameStore()
 
   const difficulties = [
-    { id: 'easy', label: 'Facile', icon: '🌱', description: 'Coups aléatoires' },
-    { id: 'medium', label: 'Moyen', icon: '⚡', description: 'Minimax profondeur 2' },
-    { id: 'hard', label: 'Difficile', icon: '🔥', description: 'Alpha-Beta optimisé' }
+    { id: 'easy', label: 'Facile', icon: '🌱' },
+    { id: 'medium', label: 'Moyen', icon: '⚡' },
+    { id: 'hard', label: 'Difficile', icon: '' }
   ]
 
   return (
@@ -20,7 +20,6 @@ function DifficultySelector() {
             key={diff.id}
             className={`difficulty-btn ${difficulty === diff.id ? 'active' : ''}`}
             onClick={() => setDifficulty(diff.id)}
-            title={diff.description}
           >
             <span className="diff-icon">{diff.icon}</span>
             <span className="diff-label">{diff.label}</span>

@@ -1,11 +1,11 @@
 <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <radialGradient id="blueGrad" cx="35%" cy="30%">
-      <stop offset="0%" style="stop-color:#64B5F6"/>
-      <stop offset="50%" style="stop-color:#2196F3"/>
-      <stop offset="100%" style="stop-color:#1565C0"/>
+    <radialGradient id="yellowGrad" cx="35%" cy="30%">
+      <stop offset="0%" style="stop-color:#FFF59D"/>
+      <stop offset="50%" style="stop-color:#FFC107"/>
+      <stop offset="100%" style="stop-color:#F57F17"/>
     </radialGradient>
-    <filter id="blueShadow">
+    <filter id="yellowShadow">
       <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
       <feOffset dx="1" dy="3" result="offsetblur"/>
       <feComponentTransfer>
@@ -22,18 +22,18 @@
   <ellipse cx="40" cy="72" rx="26" ry="4" fill="rgba(0,0,0,0.3)"/>
   
   <!-- Base du pion -->
-  <ellipse cx="40" cy="62" rx="22" ry="7" fill="#0D47A1" filter="url(#blueShadow)"/>
+  <ellipse cx="40" cy="62" rx="22" ry="7" fill="#E65100" filter="url(#yellowShadow)"/>
   
   <!-- Corps du pion -->
   <path d="M 26 62 Q 26 48 30 40 Q 34 32 40 28 Q 46 32 50 40 Q 54 48 54 62 Z" 
-        fill="url(#blueGrad)" stroke="#0D47A1" stroke-width="1.5"/>
+        fill="url(#yellowGrad)" stroke="#E65100" stroke-width="1.5"/>
   
   <!-- Tête du pion -->
-  <circle cx="40" cy="24" r="13" fill="url(#blueGrad)" stroke="#0D47A1" stroke-width="1.5"/>
+  <circle cx="40" cy="24" r="13" fill="url(#yellowGrad)" stroke="#E65100" stroke-width="1.5"/>
   
   <!-- Reflet -->
-  <ellipse cx="36" cy="19" rx="4" ry="6" fill="rgba(255,255,255,0.5)"/>
+  <ellipse cx="36" cy="19" rx="4" ry="6" fill="rgba(255,255,255,0.6)"/>
   
   <!-- Anneau décoratif -->
-  <ellipse cx="40" cy="48" rx="10" ry="3" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+  <ellipse cx="40" cy="48" rx="10" ry="3" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
 </svg>

@@ -4,19 +4,20 @@ import { useGameStore } from '../store/gameStore'
 function StatusPanel() {
   const { 
     currentPlayer, phase, p1PiecesLeft, p2PiecesLeft, 
-    gameMode, moveCount, winner, connectionStatus, backendAvailable 
+    gameMode, moveCount, winner, connectionStatus,
+    history, historyIndex
   } = useGameStore()
 
   const getPhaseText = () => {
     if (winner) return '🏆 Partie terminée'
-    if (phase === 1) return '📍 Phase 1 : Placement'
+    if (phase === 1) return ' Phase 1 : Placement'
     return '🔄 Phase 2 : Mouvement'
   }
 
   const getCurrentPlayerText = () => {
-    if (winner) return winner === 1 ? '🔵 Bleu gagne !' : '🩷 Pink gagne !'
-    if (gameMode === 'ai-vs-ai') return '⚔️ IA vs IA'
-    return currentPlayer === 1 ? '🔵 Tour de Bleu' : '🩷 Tour de Pink'
+    if (winner) return winner === 1 ? ' bleu gagne !' : ' jaune gagne !'
+    if (gameMode === 'ai-vs-ai') return ' IA vs IA'
+    return currentPlayer === 1 ? 'Tour du bleu' : 'Tour du jaune'
   }
 
   const getConnectionStatus = () => {
@@ -30,7 +31,7 @@ function StatusPanel() {
 
   return (
     <div className="status-panel">
-      <h3>📊 État du Jeu</h3>
+      <h3> État du Jeu</h3>
       
       <div className="status-item">
         <span className="label">Connexion :</span>
@@ -52,16 +53,21 @@ function StatusPanel() {
       </div>
 
       <div className="status-item">
-        <span className="label">Coups :</span>
+        <span className="label">Coups joués :</span>
         <span className="value">{moveCount}</span>
+      </div>
+
+      <div className="status-item">
+        <span className="label">Historique :</span>
+        <span className="value">{historyIndex + 1} / {history.length}</span>
       </div>
 
       <div className="pieces-counter">
         <div className="piece-count blue">
-          🔵 {p1PiecesLeft} pion(s) à placer
+           {p1PiecesLeft} pion(s) à placer
         </div>
         <div className="piece-count pink">
-          🩷 {p2PiecesLeft} pion(s) à placer
+           {p2PiecesLeft} pion(s) à placer
         </div>
       </div>
     </div>

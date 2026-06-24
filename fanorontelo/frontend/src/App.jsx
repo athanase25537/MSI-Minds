@@ -26,7 +26,6 @@ function App() {
     <div className="app-container">
       <header className="app-header">
         <h1>🎮 Fanoron-telo</h1>
-        <p className="subtitle">Hackathon IA - ISP Madagascar</p>
       </header>
 
       <main className="game-container">

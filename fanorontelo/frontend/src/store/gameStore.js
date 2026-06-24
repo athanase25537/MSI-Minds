@@ -169,19 +169,18 @@ export const useGameStore = create((set, get) => ({
   gameMode: 'human-vs-human',
   difficulty: 'medium',
   aiThinking: false,
-  history: [],
-  historyIndex: -1,
+  history: [], // Historique des états
+  historyIndex: -1, // Index actuel dans l'historique
   lastMove: null,
   moveCount: 0,
   backendAvailable: false,
-  useLocalLogic: true, // Fallback par défaut
-  connectionStatus: 'checking', // 'checking', 'online', 'offline'
+  useLocalLogic: true,
+  connectionStatus: 'checking',
 
   // Initialisation
   initializeGame: async () => {
     set({ connectionStatus: 'checking' })
     
-    // Tester la connexion au backend
     try {
       const test = await gameService.testConnection()
       if (test.success) {
@@ -192,7 +191,6 @@ export const useGameStore = create((set, get) => ({
           connectionStatus: 'online'
         })
         
-        // Essayer de créer une partie via le backend
         try {
           const response = await gameService.newGame()
           set({
@@ -219,7 +217,6 @@ export const useGameStore = create((set, get) => ({
       console.warn('⚠️ Backend non disponible, utilisation de la logique locale')
     }
     
-    // Fallback local
     set({ 
       backendAvailable: false, 
       useLocalLogic: true,
@@ -250,11 +247,22 @@ export const useGameStore = create((set, get) => ({
       p1PiecesLeft: state.p1PiecesLeft,
       p2PiecesLeft: state.p2PiecesLeft,
       winner: state.winner,
-      winningLine: state.winningLine
+      winningLine: state.winningLine,
+      lastMove: state.lastMove,
+      moveCount: state.moveCount
     }
+    
+    // Supprimer les états futurs si on est au milieu de l'historique
     const newHistory = state.history.slice(0, state.historyIndex + 1)
     newHistory.push(snapshot)
-    set({ history: newHistory, historyIndex: newHistory.length - 1 })
+    
+    console.log('💾 État sauvegardé:', snapshot)
+    console.log('📚 Historique:', newHistory.length, 'états')
+    
+    set({ 
+      history: newHistory, 
+      historyIndex: newHistory.length - 1 
+    })
   },
 
   // Clic sur une case
@@ -442,7 +450,6 @@ export const useGameStore = create((set, get) => ({
     setTimeout(async () => {
       let move = null
       
-      // Essayer le backend d'abord
       if (!state.useLocalLogic && state.backendAvailable) {
         try {
           move = await aiService.getAIMove({
@@ -458,7 +465,6 @@ export const useGameStore = create((set, get) => ({
         }
       }
       
-      // Fallback local
       if (!move) {
         move = getLocalAIMove(state, state.difficulty)
       }
@@ -468,7 +474,6 @@ export const useGameStore = create((set, get) => ({
         return
       }
       
-      // Appliquer le coup
       if (state.phase === 1) {
         const newBoard = setCase(state.board, move.to_case, state.currentPlayer)
         const newP1Left = state.currentPlayer === 1 ? state.p1PiecesLeft - 1 : state.p1PiecesLeft
@@ -544,98 +549,83 @@ export const useGameStore = create((set, get) => ({
     }, 500)
   },
 
-  // Undo
-  undo: async () => {
+  // ✅ UNDO CORRIGÉ
+  undo: () => {
     const state = get()
     
-    // Essayer le backend
-    if (!state.useLocalLogic && state.backendAvailable) {
-      try {
-        const response = await gameService.undo()
-        set({
-          board: response.board,
-          currentPlayer: response.current_player,
-          phase: response.phase,
-          p1PiecesLeft: response.p1_pieces_left,
-          p2PiecesLeft: response.p2_pieces_left,
-          winner: response.winner,
-          winningLine: response.winning_line || null,
-          selectedCase: null,
-          validMoves: []
-        })
-        return
-      } catch (error) {
-        console.warn('⚠️ Backend undo failed, fallback local')
-      }
+    console.log('↩️ Undo appelé')
+    console.log('📚 Historique length:', state.history.length)
+    console.log('📍 Index actuel:', state.historyIndex)
+    
+    // Vérifier si on peut annuler
+    if (state.historyIndex <= 0) {
+      console.log('❌ Impossible d\'annuler : premier état')
+      return
     }
     
-    // Fallback local
-    if (state.historyIndex <= 0) return
-    
+    // Aller à l'état précédent
     const prevIndex = state.historyIndex - 1
-    const prev = state.history[prevIndex]
+    const prevState = state.history[prevIndex]
+    
+    console.log('✅ Restauration état:', prevState)
     
     set({
-      board: prev.board,
-      currentPlayer: prev.currentPlayer,
-      phase: prev.phase,
-      p1PiecesLeft: prev.p1PiecesLeft,
-      p2PiecesLeft: prev.p2PiecesLeft,
-      winner: prev.winner,
-      winningLine: prev.winningLine,
+      board: prevState.board,
+      currentPlayer: prevState.currentPlayer,
+      phase: prevState.phase,
+      p1PiecesLeft: prevState.p1PiecesLeft,
+      p2PiecesLeft: prevState.p2PiecesLeft,
+      winner: prevState.winner,
+      winningLine: prevState.winningLine,
+      lastMove: prevState.lastMove,
+      moveCount: prevState.moveCount,
       historyIndex: prevIndex,
       selectedCase: null,
-      validMoves: []
+      validMoves: [],
+      aiThinking: false
     })
   },
 
-  // Redo
-  redo: async () => {
+  // ✅ REDO CORRIGÉ
+  redo: () => {
     const state = get()
     
-    // Essayer le backend
-    if (!state.useLocalLogic && state.backendAvailable) {
-      try {
-        const response = await gameService.redo()
-        set({
-          board: response.board,
-          currentPlayer: response.current_player,
-          phase: response.phase,
-          p1PiecesLeft: response.p1_pieces_left,
-          p2PiecesLeft: response.p2_pieces_left,
-          winner: response.winner,
-          winningLine: response.winning_line || null,
-          selectedCase: null,
-          validMoves: []
-        })
-        return
-      } catch (error) {
-        console.warn('⚠️ Backend redo failed, fallback local')
-      }
+    console.log('↪️ Redo appelé')
+    console.log('📚 Historique length:', state.history.length)
+    console.log('📍 Index actuel:', state.historyIndex)
+    
+    // Vérifier si on peut refaire
+    if (state.historyIndex >= state.history.length - 1) {
+      console.log('❌ Impossible de refaire : dernier état')
+      return
     }
     
-    // Fallback local
-    if (state.historyIndex >= state.history.length - 1) return
-    
+    // Aller à l'état suivant
     const nextIndex = state.historyIndex + 1
-    const next = state.history[nextIndex]
+    const nextState = state.history[nextIndex]
+    
+    console.log('✅ Restauration état:', nextState)
     
     set({
-      board: next.board,
-      currentPlayer: next.currentPlayer,
-      phase: next.phase,
-      p1PiecesLeft: next.p1PiecesLeft,
-      p2PiecesLeft: next.p2PiecesLeft,
-      winner: next.winner,
-      winningLine: next.winningLine,
+      board: nextState.board,
+      currentPlayer: nextState.currentPlayer,
+      phase: nextState.phase,
+      p1PiecesLeft: nextState.p1PiecesLeft,
+      p2PiecesLeft: nextState.p2PiecesLeft,
+      winner: nextState.winner,
+      winningLine: nextState.winningLine,
+      lastMove: nextState.lastMove,
+      moveCount: nextState.moveCount,
       historyIndex: nextIndex,
       selectedCase: null,
-      validMoves: []
+      validMoves: [],
+      aiThinking: false
     })
   },
 
   // Reset
   resetGame: () => {
+    console.log('🔄 Reset du jeu')
     get().initializeGame()
   },
 

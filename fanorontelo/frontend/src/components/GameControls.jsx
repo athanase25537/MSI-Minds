@@ -2,7 +2,10 @@ import React from 'react'
 import { useGameStore } from '../store/gameStore'
 
 function GameControls() {
-  const { undo, redo, resetGame, canUndo, canRedo } = useGameStore()
+  const { undo, redo, resetGame, historyIndex, history } = useGameStore()
+  
+  const canUndo = historyIndex > 0
+  const canRedo = historyIndex < history.length - 1
 
   return (
     <div className="game-controls">
@@ -15,7 +18,8 @@ function GameControls() {
           className="control-btn"
           title="Annuler le dernier coup"
         >
-          ↩️ Undo
+          <span>↩️</span>
+          <span>Annuler</span>
         </button>
 
         <button 
@@ -24,7 +28,8 @@ function GameControls() {
           className="control-btn"
           title="Refaire le coup annulé"
         >
-          ↪️ Redo
+          <span>️</span>
+          <span>Refaire</span>
         </button>
 
         <button 
@@ -32,7 +37,8 @@ function GameControls() {
           className="control-btn reset-btn"
           title="Recommencer la partie"
         >
-          🔄 Reset
+          <span></span>
+          <span>Nouvelle Partie</span>
         </button>
       </div>
     </div>

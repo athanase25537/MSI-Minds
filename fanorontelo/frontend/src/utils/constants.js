@@ -1,14 +1,15 @@
-// Positions des cases sur le plateau (en pourcentage)
+// Positions des cases en PIXELS (pour un plateau de 550x550)
+// Centre du plateau = 275px, espacement = 165px
 export const CASE_POSITIONS = [
-  { x: 16.67, y: 16.67 },  // Case 0 (haut-gauche)
-  { x: 50, y: 16.67 },     // Case 1 (haut-centre)
-  { x: 83.33, y: 16.67 },  // Case 2 (haut-droite)
-  { x: 16.67, y: 50 },     // Case 3 (milieu-gauche)
-  { x: 50, y: 50 },        // Case 4 (centre)
-  { x: 83.33, y: 50 },     // Case 5 (milieu-droite)
-  { x: 16.67, y: 83.33 },  // Case 6 (bas-gauche)
-  { x: 50, y: 83.33 },     // Case 7 (bas-centre)
-  { x: 83.33, y: 83.33 }   // Case 8 (bas-droite)
+  { x: 110, y: 110 },  // Case 0 (haut-gauche)
+  { x: 275, y: 110 },  // Case 1 (haut-centre)
+  { x: 440, y: 110 },  // Case 2 (haut-droite)
+  { x: 110, y: 275 },  // Case 3 (milieu-gauche)
+  { x: 275, y: 275 },  // Case 4 (centre)
+  { x: 440, y: 275 },  // Case 5 (milieu-droite)
+  { x: 110, y: 440 },  // Case 6 (bas-gauche)
+  { x: 275, y: 440 },  // Case 7 (bas-centre)
+  { x: 440, y: 440 }   // Case 8 (bas-droite)
 ]
 
 // Masques de victoire (lignes de 3 cases)
@@ -34,15 +35,4 @@ export const ADJACENCY = {
   6: [3, 4, 7],
   7: [4, 6, 8],
   8: [4, 5, 7]
-}
-
-// Valeurs des cases
-export const EMPTY = 0
-export const PLAYER1 = 1
-export const PLAYER2 = 2
-
-// Configuration API
-export const API_CONFIG = {
-  BASE_URL: import.meta.env.VITE_API_URL || 'http://localhost:8000',
-  TIMEOUT: 10000
 }

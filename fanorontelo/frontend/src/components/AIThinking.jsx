@@ -9,7 +9,7 @@ function AIThinking() {
           <div className="thinking-dot"></div>
           <div className="thinking-dot"></div>
         </div>
-        <p>🤖 L'IA réfléchit...</p>
+        <p> L'IA réfléchit...</p>
       </div>
     </div>
   )

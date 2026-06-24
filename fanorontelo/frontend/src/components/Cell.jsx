@@ -1,40 +1,24 @@
 import React from 'react'
 import Pawn from './Pawn'
 
-function Cell({ index, position, value, isValidMove, isSelected, onClick }) {
-  const getCellStyle = () => {
-    let style = {
-      left: `${position.x}%`,
-      top: `${position.y}%`,
-      transform: 'translate(-50%, -50%)'
-    }
-
-    if (isSelected) {
-      style.border = '3px solid #FFD700'
-      style.boxShadow = '0 0 15px rgba(255, 215, 0, 0.8)'
-    } else if (isValidMove) {
-      style.border = '3px dashed #4CAF50'
-      style.cursor = 'pointer'
-    }
-
-    return style
+function Cell({ index, position, value, isValidMove, isSelected, isWinning, isLastMove, onClick }) {
+  const style = {
+    left: `${position.x}px`,
+    top: `${position.y}px`,
+    transform: 'translate(-50%, -50%)'
   }
 
-  const handleClick = (e) => {
-    e.stopPropagation()
-    onClick()
-  }
+  const className = [
+    'cell',
+    isValidMove && 'valid-move',
+    isSelected && 'selected',
+    isWinning && 'winning'
+  ].filter(Boolean).join(' ')
 
   return (
-    <div 
-      className={`cell ${isValidMove ? 'valid-move' : ''} ${isSelected ? 'selected' : ''}`}
-      style={getCellStyle()}
-      onClick={handleClick}
-    >
+    <div className={className} style={style} onClick={onClick}>
       {value !== 0 && <Pawn player={value} />}
-      {isValidMove && value === 0 && (
-        <div className="move-indicator"></div>
-      )}
+      {isValidMove && value === 0 && <div className="move-indicator"></div>}
     </div>
   )
 }
