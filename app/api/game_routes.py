@@ -9,6 +9,11 @@ def get_game_service():
     # In production you might use a global instance or a factory
     return GameService()
 
+@router.get("/")
+async def welcome():
+    return {
+        "greeting": "Hello world ! Welcome to fanoron-telo api"
+    }
 
 @router.post("/game/new", response_model=dict)
 async def new_game(
