@@ -6,18 +6,18 @@
 
 ## 1. En‑tête institutionnel et identification
 
-**Groupe :** MSI-Minds  
 **Institution :** [ISPM Madagascar](https://www.ispm-edu.com)
+**Groupe :** MSI-Minds  
 
 | Nom complet | Numéro étudiant | Classe | Rôle dans le hackathon |
 |-------------|-----------------|--------|-------------------------|
-| ANDRIAMASY Athanase Marc | 28 | ESIIA 4 | Lead AI Developer |
-| RANDRIANARISOA Notahianiela Olly Desto | 20 | IMTICIA 4 | UI/UX Designer & Frontend |
-| Rakotoniaina Mbolatiana Joëllah | 13 | ESIIA 4 | Backend Architect & DevOps |
-| Rakotoarisoa Heriniaina Steve | 15 | ESIIA 4 | Expert Optimisation IA |
-| RAKOTONARIVO Jonah Harivelona | 6 | ESIIA 4 | Expert Optimisation IA |
-| Ravelonjatovoarijaona Zo Noary Fitahiana | 29 | ESIIA 4 | Expert Optimisation IA |
-| RAVELOMANANTSOA Hardy Christel | 14 | ESIIA 4 | Expert Optimisation IA |
+| ANDRIAMASY Athanase Marc | 28 | ESIIA 4 | Lead Developer & Backend Architect & DevOps |
+| RANDRIANARISOA Notahianiela Olly Desto | 20 | IMTICIA 4 | UI/UX Designer & Frontend Lead |
+| Ravelonjatovoarijaona Zo Noary Fitahiana | 29 | ESIIA 4 | Frontend Developer & API Integration |
+| Rakotoniaina Mbolatiana Joëllah | 13 | ESIIA 4 | Quality Assurance & Testing Engineer |
+| Rakotoarisoa Heriniaina Steve | 15 | ESIIA 4 | AI Core Developer (Minimax & Alpha‑Beta) |
+| RAKOTONARIVO Jonah Harivelona | 6 | ESIIA 4 | AI Heuristic & Evaluation Specialist |
+| RAVELOMANANTSOA Hardy Christel | 14 | ESIIA 4 | Technical Documentation & Project Coordinator |
 
 ---
 
