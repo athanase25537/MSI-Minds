@@ -2,28 +2,31 @@ import api from './api'
 
 export const aiService = {
   // Obtenir le coup de l'IA
-  getAIMove: async (board, difficulty) => {
-    const response = await api.post('/ai/move', {
-      board,
-      difficulty
-    })
-    return response.data
+  getAIMove: async (gameState, difficulty) => {
+    try {
+      const response = await api.post('/ai/move', {
+        board: gameState.board,
+        current_player: gameState.currentPlayer,
+        phase: gameState.phase,
+        p1_pieces_left: gameState.p1PiecesLeft,
+        p2_pieces_left: gameState.p2PiecesLeft,
+        difficulty: difficulty
+      })
+      return response.data
+    } catch (error) {
+      console.error('Erreur aiService.getAIMove:', error)
+      throw error
+    }
   },
 
-  // Analyser la position (pour affichage)
+  // Analyser une position
   analyzePosition: async (board) => {
-    const response = await api.post('/ai/analyze', {
-      board
-    })
-    return response.data
-  },
-
-  // Lancer une démo IA vs IA
-  startDemo: async (difficulty1, difficulty2) => {
-    const response = await api.post('/demo/start', {
-      difficulty1,
-      difficulty2
-    })
-    return response.data
+    try {
+      const response = await api.post('/ai/analyze', { board })
+      return response.data
+    } catch (error) {
+      console.error('Erreur analyzePosition:', error)
+      throw error
+    }
   }
 }
