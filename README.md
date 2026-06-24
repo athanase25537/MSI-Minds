@@ -54,7 +54,7 @@ L’application expose une API REST qui gère :
 - Test : pytest
 - Stockage : en mémoire (dict) – peut être remplacé par Redis/DB en production
 
-**Lien vers la version hébergée** : *non disponible pour l’instant (hébergement prévu ultérieurement)*
+**Lien vers la version hébergée** : [https://msi-minds.onrender.com/](https://msi-minds.onrender.com/)
 
 ---
 
