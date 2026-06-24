@@ -7,6 +7,7 @@
 ## 1. En‑tête institutionnel et identification
 
 **Institution :** [ISPM Madagascar](https://www.ispm-edu.com)
+
 **Groupe :** MSI-Minds  
 
 | Nom complet | Numéro étudiant | Classe | Rôle dans le hackathon |
