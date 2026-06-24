@@ -1,4 +1,4 @@
-from typing import Dict, Optional
+from typing import Dict
 from ..core.game import GameState, PLAYER1, PLAYER2
 from ..ai.ai_player import get_ai_move
 from ..models.schemas import NewGameRequest

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 from ..models.schemas import NewGameRequest
-from .game_service import GameService
+from ..api.game_services import GameService
 
 router = APIRouter()
 
