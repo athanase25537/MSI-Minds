@@ -14,7 +14,6 @@ class GameService:
         self.db = db
 
     def _model_to_game(self, model: GameModel) -> GameState:
-        """Reconstruire un GameState à partir d'un modèle DB."""
         game = GameState.__new__(GameState)
         game.game_id = model.game_id
         game.mode = model.mode
@@ -24,11 +23,10 @@ class GameService:
         game.turn = model.turn
         game.winner = model.winner
         game.status = model.status
-        # Convertir les clés des JSON en int
         game.pieces_left = {int(k): v for k, v in model.pieces_left.items()} if model.pieces_left else {}
         game.players = {int(k): v for k, v in model.players.items()} if model.players else {}
         return game
-
+    
     def _game_to_model(self, game: GameState, model: Optional[GameModel] = None) -> GameModel:
         """Convertir un GameState en modèle DB (création ou mise à jour)."""
         if model is None:

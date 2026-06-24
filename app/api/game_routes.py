@@ -18,9 +18,14 @@ async def get_state(game_id: str, service: GameService = Depends(get_game_servic
         raise HTTPException(status_code=404, detail=str(e))
 
 @router.post("/game/{game_id}/move", response_model=dict)
-async def make_move(game_id: str, move: dict, service: GameService = Depends(get_game_service)):
+async def make_move(
+    game_id: str,
+    move: MoveRequest,
+    service: GameService = Depends(get_game_service)
+):
     try:
-        return service.make_move(game_id, move)
+        # Convertir en dict et passer au service
+        return service.make_move(game_id, move.to_dict())
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
