@@ -73,7 +73,7 @@ git clone https://github.com/athanase25537/MSI-Minds.git
 cd MSI-Minds
 
 # 2. Lancer le frontend (dans ./view)
-cd view
+cd .\fanorontelo\frontend\
 npm install
 npm run dev
 
