@@ -12,12 +12,12 @@
 | Nom complet | Numéro étudiant | Classe | Rôle dans le hackathon |
 |-------------|-----------------|--------|-------------------------|
 | ANDRIAMASY Athanase Marc | 28 | ESIIA 4 | Lead AI Developer |
-| RANDRIANARISOA Notahianiela Olly Desto | 20 | IMTICIA 4 | UI/UX Designer & Frontend (API consommateur) |
+| RANDRIANARISOA Notahianiela Olly Desto | 20 | IMTICIA 4 | UI/UX Designer & Frontend |
 | Rakotoniaina Mbolatiana Joëllah | 13 | ESIIA 4 | Backend Architect & DevOps |
 | Rakotoarisoa Heriniaina Steve | 15 | ESIIA 4 | Expert Optimisation IA |
-| RAKOTONARIVO Jonah  Harivelona | 6 | ESIIA 4 | Expert Optimisation IA |
+| RAKOTONARIVO Jonah Harivelona | 6 | ESIIA 4 | Expert Optimisation IA |
 | Ravelonjatovoarijaona Zo Noary Fitahiana | 29 | ESIIA 4 | Expert Optimisation IA |
-| RAVELOMANANTSOA Hardy Christel  | 14 | ESIIA 4 | Expert Optimisation IA |
+| RAVELOMANANTSOA Hardy Christel | 14 | ESIIA 4 | Expert Optimisation IA |
 
 ---
 
@@ -39,34 +39,60 @@ L’application expose une API REST qui gère :
 - ✅ API documentée (Swagger automatique)
 - ✅ CORS activé pour faciliter l’intégration frontend
 - ✅ Code modulaire, tests unitaires de base
+- ✅ Interface utilisateur fonctionnelle (HTML/CSS/JS) intégrée au backend
 
 **Ce qui n’a pas été fait** (P3 bonus) :
 - Undo/Redo
-- Animations
+- Animations avancées
 - Table de transposition / opening book
 - Déploiement effectif (mais le README contient les instructions pour lancer localement)
 
 **Architecture technique** :
 - Backend : FastAPI (Python 3.10+)
-- Serveur : Uvicorn
+- Frontend : HTML / CSS / JavaScript (intégré dans les templates)
+- Serveur : Uvicorn (ou `fastapi run`)
 - Test : pytest
-- Stockage : en mémoire (dic) – peut être remplacé par Redis/DB en production
+- Stockage : en mémoire (dict) – peut être remplacé par Redis/DB en production
 
-**Lien vers la version hébergée** : *non disponible pour l’instant (hébergement prévu plus tard)*
+**Lien vers la version hébergée** : *non disponible pour l’instant (hébergement prévu ultérieurement)*
 
 ---
 
-## 3. Guide d’installation rapide (3 commandes)
+## 3. Guide d’installation rapide (4 commandes)
 
-Assurez‑vous d’avoir **Python 3.10+** et **Git** installés.
+### Prérequis
+- **Python 3.10 ou supérieur** installé sur votre machine.
+- **Git** pour cloner le dépôt.
+
+### Étapes pour Linux / macOS
 
 ```bash
 # 1. Cloner le dépôt
-git clone https://github.com/athanase25537/MSI-Minds
-cd fanoron-telo-backend
+git clone https://github.com/athanase25537/MSI-Minds.git
+cd MSI-Minds
 
-# 2. Installer les dépendances
+# 2. Créer et activer l’environnement virtuel
+python3 -m venv venv
+source venv/bin/activate
+
+# 3. Installer les dépendances
 pip install -r requirements.txt
 
-# 3. Lancer le serveur
-fastapi run app/main.py --host 0.0.0.0 --port 8000
+# 4. Lancer le serveur (avec uvicorn, recommandé)
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+
+### Étapes pour Windows (Powershell)
+
+# 1. Cloner le dépôt
+git clone https://github.com/athanase25537/MSI-Minds.git
+cd MSI-Minds
+
+# 2. Créer et activer l’environnement virtuel
+python -m venv venv
+venv\Scripts\Activate.ps1
+
+# 3. Installer les dépendances
+pip install -r requirements.txt
+
+# 4. Lancer le serveur
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
