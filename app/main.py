@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .api.routes import router
+from .api.game_routes import router
 
 app = FastAPI(title="Fanoron-telo Backend", version="1.0")
 
