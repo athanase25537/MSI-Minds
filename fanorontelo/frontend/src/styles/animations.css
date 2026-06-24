@@ -1,3 +1,4 @@
+/* Animations de base */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -9,7 +10,7 @@
 
 @keyframes slideUp {
   from {
-    transform: translateY(50px);
+    transform: translateY(30px);
     opacity: 0;
   }
   to {
@@ -18,32 +19,77 @@
   }
 }
 
+@keyframes slideDown {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Animation des pions */
 @keyframes bounce-blue {
   0%, 100% {
-    transform: scale(1);
+    transform: scale(1) translateZ(0);
   }
   50% {
-    transform: scale(1.1);
+    transform: scale(1.12) translateZ(0);
   }
 }
 
 @keyframes bounce-pink {
   0%, 100% {
+    transform: scale(1) translateZ(0);
+  }
+  50% {
+    transform: scale(1.12) translateZ(0);
+  }
+}
+
+@keyframes pulseSoft {
+  0%, 100% {
+    opacity: 0.7;
     transform: scale(1);
   }
   50% {
-    transform: scale(1.1);
+    opacity: 1;
+    transform: scale(1.15);
   }
 }
 
 @keyframes pulse {
   0%, 100% {
-    opacity: 0.5;
-    transform: scale(1);
+    opacity: 0.6;
+    transform: scale(1) box-shadow(0 0 0 0 rgba(107, 142, 111, 0.4));
   }
   50% {
     opacity: 1;
-    transform: scale(1.2);
+    transform: scale(1.2) box-shadow(0 0 0 8px rgba(107, 142, 111, 0));
   }
 }
 
@@ -56,39 +102,78 @@
   }
 }
 
-/* AI Thinking Animation */
+@keyframes spinR {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+/* Animation du plateau */
+@keyframes boardAppear {
+  from {
+    transform: scale(0.85) rotateX(-10deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-in {
+  animation: boardAppear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Écrans IA en réflexion */
 .ai-thinking-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255,255,255,0.9);
+  background: linear-gradient(135deg, rgba(255, 251, 248, 0.92) 0%, rgba(245, 241, 237, 0.92) 100%);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 50;
-  border-radius: 20px;
+  border-radius: 24px;
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease;
 }
 
 .ai-thinking-card {
   text-align: center;
-  padding: 30px;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  animation: slideUp 0.4s ease;
+}
+
+.ai-thinking-card h3 {
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  color: var(--primary-warm);
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 .thinking-animation {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
+  align-items: flex-end;
+  gap: clamp(0.5rem, 1vw, 0.75rem);
+  margin-bottom: 1.5rem;
+  height: 40px;
 }
 
 .thinking-dot {
-  width: 15px;
-  height: 15px;
+  width: clamp(10px, 2vw, 16px);
+  height: clamp(10px, 2vw, 16px);
   border-radius: 50%;
-  background: #667eea;
+  background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-coral) 100%);
   animation: thinkingBounce 1.4s infinite ease-in-out both;
+  box-shadow: 0 4px 12px rgba(139, 115, 85, 0.2);
 }
 
 .thinking-dot:nth-child(1) {
@@ -99,67 +184,223 @@
   animation-delay: -0.16s;
 }
 
+.thinking-dot:nth-child(3) {
+  animation-delay: 0s;
+}
+
 @keyframes thinkingBounce {
   0%, 80%, 100% {
-    transform: scale(0);
+    transform: scale(0) translateY(0);
+    opacity: 0.5;
   }
   40% {
-    transform: scale(1);
-  }
-}
-
-.ai-thinking-card p {
-  font-size: 1.3rem;
-  color: #667eea;
-  font-weight: 600;
-}
-
-/* Board Animation */
-.animate-in {
-  animation: boardAppear 0.6s ease;
-}
-
-@keyframes boardAppear {
-  from {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
+    transform: scale(1) translateY(-15px);
     opacity: 1;
   }
 }
 
-/* Hover Effects */
+.ai-thinking-card p {
+  font-size: clamp(0.95rem, 1.8vw, 1.2rem);
+  color: var(--primary-warm);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  animation: fadeIn 0.6s ease 0.2s both;
+}
+
+/* Effets de survol global */
+button {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.98) !important;
+}
+
+/* Transition fluide */
+* {
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
 .cell {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
 }
 
-.cell:hover {
-  z-index: 10;
+/* Animations de page entière */
+.fade-enter {
+  animation: fadeIn 0.4s ease;
 }
 
-/* Responsive */
+.fade-exit {
+  animation: fadeIn 0.4s ease reverse;
+}
+
+.slide-enter {
+  animation: slideUp 0.5s ease;
+}
+
+/* Animations de notification */
+@keyframes slideNotification {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideExitNotification {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.notification-enter {
+  animation: slideNotification 0.4s ease;
+}
+
+.notification-exit {
+  animation: slideExitNotification 0.4s ease;
+}
+
+/* Animations de chargement */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.loading {
+  animation: shimmer 2s infinite;
+  background: linear-gradient(90deg, var(--bg-light) 25%, var(--border-light) 50%, var(--bg-light) 75%);
+  background-size: 1000px 100%;
+}
+
+/* Animations de mouvement piece */
+@keyframes movePawn {
+  0% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.piece-moving {
+  animation: movePawn 0.6s ease;
+}
+
+/* Animations de capture */
+@keyframes captureEffect {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+}
+
+.piece-captured {
+  animation: captureEffect 0.5s ease forwards;
+}
+
+/* Animations de victoire */
+@keyframes celebrate {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.1) rotate(-5deg);
+  }
+  75% {
+    transform: scale(1.1) rotate(5deg);
+  }
+}
+
+.celebrate {
+  animation: celebrate 0.6s ease;
+}
+
+/* Responsive: ajustement des animations pour mobile */
 @media (max-width: 768px) {
-  .board {
-    width: 350px;
-    height: 350px;
-    padding: 35px;
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
   
-  .cell {
-    width: 60px;
-    height: 60px;
+  @keyframes boardAppear {
+    from {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
   }
   
-  .pawn {
-    width: 50px;
-    height: 50px;
+  .thinking-animation {
+    gap: clamp(0.4rem, 0.8vw, 0.6rem);
   }
   
-  .app-header h1 {
-    font-size: 2rem;
+  .thinking-dot {
+    width: clamp(8px, 1.8vw, 14px);
+    height: clamp(8px, 1.8vw, 14px);
   }
+}
 
+@media (max-width: 576px) {
+  .ai-thinking-card {
+    padding: clamp(1rem, 2vw, 1.8rem);
+  }
   
+  .ai-thinking-card h3 {
+    font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+    margin-bottom: 1rem;
+  }
+  
+  .thinking-animation {
+    margin-bottom: 1rem;
+    height: 30px;
+  }
+  
+  @keyframes thinkingBounce {
+    0%, 80%, 100% {
+      transform: scale(0) translateY(0);
+    }
+    40% {
+      transform: scale(1) translateY(-10px);
+    }
+  }
+}
+
+/* Préférence utilisateur : prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

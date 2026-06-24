@@ -1,20 +1,46 @@
+:root {
+  /* Palette de couleurs chaleureuse et humaine */
+  --primary-warm: #8B7355;      /* Brun naturel */
+  --primary-light: #D4A574;     /* Beige/Taupe */
+  --accent-blue: #5B8DBE;       /* Bleu soft */
+  --accent-coral: #D97663;      /* Coral naturel */
+  --accent-sage: #6B8E6F;       /* Vert sage */
+  --bg-light: #F5F1ED;          /* Très clair */
+  --bg-white: #FDFBF8;          /* Presque blanc */
+  --text-dark: #3D3D3D;         /* Gris foncé */
+  --text-light: #6B6B6B;        /* Gris moyen */
+  --border-light: #E8E4DF;      /* Bordure légère */
+  
+  /* Gradients chaleureux */
+  --gradient-main: linear-gradient(135deg, #8B7355 0%, #D4A574 100%);
+  --gradient-warm: linear-gradient(135deg, #D4A574 0%, #D97663 100%);
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  background: var(--gradient-main);
   min-height: 100vh;
-  color: #333;
+  color: var(--text-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .app-container {
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 1.5rem;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -23,56 +49,168 @@ body {
 .app-header {
   text-align: center;
   color: white;
-  margin-bottom: 30px;
+  margin-bottom: 2.5rem;
+  animation: slideDown 0.6s ease;
 }
 
 .app-header h1 {
-  font-size: 3rem;
-  margin-bottom: 10px;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+  letter-spacing: -1px;
 }
 
 .subtitle {
-  font-size: 1.2rem;
-  opacity: 0.9;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  opacity: 0.95;
+  font-weight: 400;
+  letter-spacing: 0.5px;
 }
 
 .game-container {
-  display: flex;
-  gap: 30px;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 2rem;
   flex: 1;
-  align-items: flex-start;
+  align-items: start;
 }
 
 .game-sidebar {
-  width: 300px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1.5rem;
 }
 
 .game-board-wrapper {
-  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
+  min-height: 600px;
 }
 
 .app-footer {
   text-align: center;
   color: white;
-  margin-top: 30px;
-  padding: 20px;
-  opacity: 0.8;
+  margin-top: 2.5rem;
+  padding: 1.5rem;
+  opacity: 0.85;
+  font-size: clamp(0.8rem, 1.5vw, 0.95rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Tablette (768px à 1024px) */
 @media (max-width: 1024px) {
+  .app-container {
+    padding: 1.2rem;
+  }
+  
+  .app-header h1 {
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+  }
+  
   .game-container {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
   
   .game-sidebar {
-    width: 100%;
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  
+  .game-board-wrapper {
+    grid-column: 1;
+    min-height: auto;
+  }
+}
+
+/* Mobile petit (576px à 768px) */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 1rem;
+  }
+  
+  .app-header h1 {
+    font-size: clamp(1.5rem, 5vw, 2.2rem);
+    margin-bottom: 0.3rem;
+  }
+  
+  .subtitle {
+    font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+  }
+  
+  .game-container {
+    gap: 1rem;
+  }
+  
+  .game-sidebar {
+    grid-template-columns: 1fr;
+  }
+  
+  .game-board-wrapper {
+    min-height: 450px;
+  }
+}
+
+/* Mobile (< 576px) */
+@media (max-width: 576px) {
+  .app-container {
+    padding: 0.75rem;
+  }
+  
+  .app-header {
+    margin-bottom: 1.5rem;
+  }
+  
+  .app-header h1 {
+    font-size: 1.7rem;
+  }
+  
+  .subtitle {
+    font-size: 0.75rem;
+  }
+  
+  .game-sidebar {
+    gap: 0.75rem;
+  }
+  
+  .game-board-wrapper {
+    min-height: 380px;
+  }
+  
+  .app-footer {
+    margin-top: 1.5rem;
+    padding: 1rem;
+  }
+}
+
+/* Ultra petit écran (< 360px) */
+@media (max-width: 360px) {
+  .app-container {
+    padding: 0.5rem;
+  }
+  
+  .app-header h1 {
+    font-size: 1.4rem;
+    margin-bottom: 0.2rem;
+  }
+  
+  .game-board-wrapper {
+    min-height: 320px;
   }
 }
